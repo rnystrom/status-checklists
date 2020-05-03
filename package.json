@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "status-checklists",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Update the status of an issue when checklists change",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -25,7 +25,8 @@
   "author": "YourNameOrOrganization",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0"
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^2.1.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
