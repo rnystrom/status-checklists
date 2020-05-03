@@ -12,22 +12,22 @@ async function run(): Promise<void> {
     }
 
     const checklistResult = findChecklists(issue.body ?? '')
-    if (checklistResult.open == 0 && checklistResult.closed == 0) {
+    if (checklistResult.open === 0 && checklistResult.closed === 0) {
       console.log('No checklists found, bailing')
       return
     }
 
     const statusOpen = checklistResult.open > 0
-    const issueIsOpen = issue.state == 'open'
+    const issueIsOpen = issue.state === 'open'
 
-    if (statusOpen == issueIsOpen) {
+    if (statusOpen === issueIsOpen) {
       console.log('Issue status unchanged, bailing')
       return
     }
 
     // get the token
     const token = core.getInput('github_token')
-    if (!token || token.length == 0) {
+    if (!token || token.length === 0) {
       core.setFailed('Missing required github_token input')
       return
     }
