@@ -11,7 +11,7 @@ async function run(): Promise<void> {
       return
     }
 
-    const checklistResult = findChecklists(issue.body)
+    const checklistResult = findChecklists(issue.body ?? '')
     if (checklistResult.open == 0 && checklistResult.closed == 0) {
       console.log('No checklists found, bailing')
       return
@@ -36,8 +36,8 @@ async function run(): Promise<void> {
 
     console.log(`Setting issue status to ${statusOpen ? 'open' : 'closed'}...`)
     await client.issues.update({
-      owner: github.context.payload.repository.owner.login,
-      repo: github.context.payload.repository.name,
+      owner: github.context.payload.repository?.owner.login ?? '',
+      repo: github.context.payload.repository?.name ?? '',
       issue_number: issue.number,
       state: statusOpen ? 'open' : 'closed'
     })
