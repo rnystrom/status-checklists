@@ -3519,6 +3519,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const github = __importStar(__webpack_require__(469));
 const utility_1 = __webpack_require__(274);
+function setOutput(result) {
+    if (result.open == 0 && result.closed > 0) {
+        core.setOutput('checklist_status', 'closed');
+    }
+    else if (result.open > 0 && result.closed > 0) {
+        core.setOutput('checklist_status', 'in_progress');
+    }
+    else if (result.open > 0 && result.closed == 0) {
+        core.setOutput('checklist_status', 'open');
+    }
+}
 function run() {
     var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
@@ -3532,10 +3543,12 @@ function run() {
             const checklistResult = utility_1.findChecklists((_a = issue.body, (_a !== null && _a !== void 0 ? _a : '')));
             if (checklistResult.open === 0 && checklistResult.closed === 0) {
                 console.log('No checklists found, bailing');
+                core.setOutput('checklist_status', 'no_checklists');
                 return;
             }
             const statusOpen = checklistResult.open > 0;
             const issueIsOpen = issue.state === 'open';
+            setOutput(checklistResult);
             if (statusOpen === issueIsOpen) {
                 console.log('Issue status unchanged, bailing');
                 return;

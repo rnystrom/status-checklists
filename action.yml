@@ -6,6 +6,9 @@ inputs:
     description: 'Token to use for authenticated GitHub API requests'
     required: false
     default: ${{ github.token }}
+outputs:
+  checklist_status:
+    description: 'A status for the checklists: "no_checklists", "open", "in_progress", or "closed"'
 runs:
   using: 'node12'
   main: 'dist/index.js'
